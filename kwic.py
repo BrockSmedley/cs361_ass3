@@ -1,5 +1,5 @@
 #kwic.py
-#implements kwic as a class
+#implements kwic as a class  & implements events
 
 import eventspec
 DEBUG = False

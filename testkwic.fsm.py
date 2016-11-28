@@ -8,6 +8,7 @@ es = eventspec.EventSpec("kwic.fsm")
 print "testing..."
 # we're gonna start in state: start
 es.event("callConstructor")
+es.event("callIndex")
 
 es.event("callReset")
 es.event("callAddText")

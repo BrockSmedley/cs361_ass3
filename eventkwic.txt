@@ -1,0 +1,31 @@
+My kwic finite state machine implementation defines event calls for each helper function in kwic. For “events” that aren’t defined in a function, I just trigger an event call right above where the code is executed. In similar fashion to the files provided in the assignment 3 section of the files on Canvas, I have a program that tests all of the event calls (not included) and runs actual Kwic commands. 
+My finite state machine has three states: “begin”, “empty”, and “nonempty”. I chose these as the states because kwic should only run if our input string is non-empty. If it’s empty, we should not be able to use any of the transformation functions (as described below) because there is nothing to transform.
+“Begin” is the default state. It’s really just a dummy state to wait for you to initialize the Kwic object. From this state, you have one option: to call the constructor. Once you do that, the machine transitions into the “empty” state. 
+In this “empty” state, you have two options: reset and add text. Resetting just leaves us in the empty state. Adding text transitions the machine into the “nonempty” state. 
+Once in the “nonempty” state, there are several options. We have the defaults: add text, index, list pairs, reset, and call constructor. The other options are as follows:
+-	Call splitBreaks
+-	Call splitLines
+-	Call getPairs
+-	Shift lines
+-	Flatten lines
+-	Filter lines
+-	Sort result
+Each of these events describe some transformation of the dataset (string). I didn’t want to make events for the helper functions that run for every shift/break, so rather than giving them their own event calls, I just created event calls for the general function they helped perform. An example is shiftLines. “shift”, the function, gets called several times, as it’s mapped to every split line, so I put an event call right before I run the map function.
+I neglected to use onEvent, as defined in eventspec.py, but rather, I used a global eventspec object and called its event function whenever I wanted an event fired. To see how the state machine works, see the following print logs from my test program.
+  STEP #0: callConstructor --> empty
+  STEP #1: callAddText --> nonempty
+  STEP #2: callIndex --> nonempty
+  STEP #3: callSplitBreaks --> nonempty
+  STEP #4: callSplitTheLines --> nonempty
+  STEP #5: shiftLines --> nonempty
+  STEP #6: flattenLines --> nonempty
+  STEP #7: filterLines --> nonempty
+  STEP #8: sortResult --> nonempty
+
+If we want to see it fail, and verify that we aren’t allowed to use transformations on an empty dataset, then we can try to manually call events from the wrong state. An example follows:
+# we're gonna start in state: start
+es.event("callConstructor")
+es.event("callIndex")
+# program fails right here.
+Since the callIndex event is only defined in the nonempty state, we get a runtime error from the eventspec. When you actually run kwic, the states are set by the program, so they will never produce a runtime error unless something crazy happens to the program during runtime.
+
