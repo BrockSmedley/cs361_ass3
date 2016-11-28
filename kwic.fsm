@@ -12,4 +12,10 @@ callAddText -> nonempty
 callIndex -> nonempty
 callListPairs -> nonempty
 callReset -> empty
-#add more specific events
+callSplitBreaks -> nonempty
+callSplitTheLines -> nonempty
+callGetPairs -> nonempty
+shiftLines -> nonempty
+flattenLines -> nonempty
+filterLines -> nonempty
+sortResult -> nonempty
