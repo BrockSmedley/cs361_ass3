@@ -9,18 +9,12 @@ class Kwic:
         #event: initialize data
         self.periodsToBreaks = periodsToBreaks
         self.ignoreWords = ignoreWords
-        self.idx = 0
         self.text= ""
 
     def addText(self, text):
         #event: add text
         self.text += text
         sb = splitBreaks(text, self.periodsToBreaks)
-        incrementIndex(self, len(sb) - 1)
-
-    def incrementIndex(self, increment):
-        #event: increment index
-        self.idx += increment
 
     def getText(self):
         #event: get text
@@ -34,13 +28,9 @@ class Kwic:
 
     def index(self):
         #event: get index
-        return self.idx
+        return kwicit(self.text, self.ignoreWords, False, self.periodsToBreaks)
 
     def reset(self):
         #event: reset data
         self.text = ""
         self.idx = 0
-
-    def kwic(self):
-        #event: run kwic
-        return kwicit(self.text, self.ignoreWords, False, self.periodsToBreaks)

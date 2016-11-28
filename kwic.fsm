@@ -1,0 +1,15 @@
+begin: start
+
+state: start
+callConstructor -> empty
+
+state: empty
+callAddText -> nonempty
+callReset -> empty
+
+state: nonempty
+callAddText -> nonempty
+callIndex -> nonempty
+callListPairs -> nonempty
+callReset -> empty
+#add more specific events
